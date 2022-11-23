@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using Color = UnityEngine.Color;
 
 public class Player : MonoBehaviour
 {
     private Rigidbody2D player;
     private SpriteRenderer sprite;
     private Animator animator;
-    public float speed;
+    private float speed;
 
     [Header("Salto")]
     [SerializeField] private float jumpForce;
@@ -21,9 +23,16 @@ public class Player : MonoBehaviour
     [Range(0, 1)] [SerializeField] private float multiplicadorCancelarSalto;
     [SerializeField] private float multiplicadorGravedad;
     private float escalaGravedad;
-    private bool botonSaltoArriba = true;
+    private bool botonSaltoPulsado = true;
 
+    private bool damage;
+    private int knockback;
 
+    public float Speed { get => speed; set => speed = value; }
+    public bool Jump1 { get => jump; set => jump = value; }
+    public bool Damage1 { get => damage; set => damage = value; }
+    public int Knockback { get => knockback; set => knockback = value; }
+    public Animator Animator { get => animator; set => animator = value; }
     // Start is called before the first frame update
     void Start()
     {
@@ -31,59 +40,65 @@ public class Player : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         escalaGravedad = player.gravityScale;
+        speed = 10;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Jump"))
+        Damage();
+        if (!damage)
         {
-            jump = true;
-        }
+            if (Input.GetButton("Jump"))
+            {
+                jump = true;
+            }
 
-        if (onFloor)
-        {
-            animator.SetBool("Falling", false);
-        }
+            if (onFloor)
+            {
+                animator.SetBool("Falling", false);
+            }
 
-        if (Input.GetButtonUp("Jump"))
-        {
-            BotonSaltoArriba();
-            
-        }
+            if (Input.GetButtonUp("Jump"))
+            {
+                BotonSaltoPulsado();
 
-        if(player.velocity.x > 0)
-        {
-            sprite.flipX = false;
-        }
+            }
 
-        if(player.velocity.x < 0)
-        {
-            sprite.flipX = true;
+
+            animator.SetFloat("Speed", Mathf.Abs(player.velocity.x));
+            onFloor = Physics2D.OverlapBox(controladorSuelo.position, boxSize, 0, isFloor);
         }
-        animator.SetFloat("Speed", Mathf.Abs(player.velocity.x));
-        onFloor = Physics2D.OverlapBox(controladorSuelo.position, boxSize, 0, isFloor);
-        
     }
 
     private void FixedUpdate()
     {
-        float InputX = Input.GetAxis("Horizontal");
-        player.velocity = new Vector2(InputX * speed, player.velocity.y);
+        if (!damage) {
+            float InputX = Input.GetAxis("Horizontal");
+            player.velocity = new Vector2(InputX * speed, player.velocity.y);
 
-        
-        if (jump && onFloor && botonSaltoArriba)
-            Jump();
+            if (InputX > 0)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (InputX < 0)
+            {
+                transform.localScale = new Vector3(-1f, 1, 1);
+            }
 
-        if(player.velocity.y < 0 && !onFloor)
-        {
-            player.gravityScale = escalaGravedad * multiplicadorGravedad;
-            fall();
+            if (jump && onFloor && botonSaltoPulsado)
+                Jump();
+
+            if (player.velocity.y < 0 && !onFloor)
+            {
+                player.gravityScale = escalaGravedad * multiplicadorGravedad;
+                fall();
+            }
+            else
+                player.gravityScale = escalaGravedad;
+
+            jump = false;
         }
-        else
-            player.gravityScale = escalaGravedad;
-
-        jump = false;
     }
 
     private void Jump()
@@ -92,17 +107,17 @@ public class Player : MonoBehaviour
         animator.SetBool("Jumping", true);
         onFloor = false;
         jump = false;
-        botonSaltoArriba = false;
+        botonSaltoPulsado = false;
     }
 
-    private void BotonSaltoArriba()
+    private void BotonSaltoPulsado()
     {
         if(player.velocity.y > 0)
         {
             player.AddForce(Vector2.down * player.velocity.y * (1 - multiplicadorCancelarSalto), ForceMode2D.Impulse);
             animator.SetBool("Jumping", true);
         }
-        botonSaltoArriba = true;
+        botonSaltoPulsado = true;
         jump = false;
     }
 
@@ -113,6 +128,21 @@ public class Player : MonoBehaviour
             animator.SetBool("Jumping", false);
             animator.SetBool("Falling", true);
         }
+    }
+
+    public void Damage()
+    {
+        if (damage)
+        {
+            transform.Translate(Vector3.right * knockback * Time.deltaTime, Space.World);
+            jump = false;
+            botonSaltoPulsado = false;
+        }
+    }
+
+    public void FinishDamage()
+    {
+        damage = false;
     }
 
     private void OnDrawGizmosSelected()

@@ -8,12 +8,14 @@ public class TriggetAttack : MonoBehaviour
     [SerializeField] private float radioGolpe;
     [SerializeField] private float damage;
     [SerializeField] private float cdtime;
+    private Player player;
     private float cd;
     private Animator animator;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        player = GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -25,6 +27,7 @@ public class TriggetAttack : MonoBehaviour
         }
         if (Input.GetButtonDown("Fire1") && cd <= 0)
         {
+            StartCoroutine(Attacking());
             Attack();
             cd = cdtime;
         }
@@ -47,4 +50,11 @@ public class TriggetAttack : MonoBehaviour
         Gizmos.DrawWireSphere(location.position, radioGolpe);
     }
 
+    private IEnumerator Attacking()
+    {
+        player.Speed = 0;
+        player.Jump1 = false;
+        yield return new WaitForSeconds(0.7f);
+        player.Speed = 10f;
+    }
 }
