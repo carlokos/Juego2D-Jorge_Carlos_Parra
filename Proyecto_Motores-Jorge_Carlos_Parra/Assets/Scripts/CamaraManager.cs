@@ -18,13 +18,13 @@ public class CamaraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      TargetPos = new Vector3(target.transform.position.x, target.transform.position.y - 2, transform.position.z);
+      TargetPos = new Vector3(target.transform.position.x, target.transform.position.y -2, transform.position.z);
 
-      if(!target.flipX){
+      if(target.transform.localScale.x == 1){
             TargetPos = new Vector3(TargetPos.x + HaciaAdelante, TargetPos.y, transform.position.z);
       }
 
-      if (target.flipX)
+      if (target.transform.localScale.x == -1)
       {
             TargetPos = new Vector3(TargetPos.x - HaciaAdelante, TargetPos.y, transform.position.z);
       }
