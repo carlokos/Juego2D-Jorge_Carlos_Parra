@@ -7,30 +7,36 @@ public class CombatPlayer : MonoBehaviour
     private Player player;
     private float cd;
     private Animator animator;
-    private SpriteRenderer sprite;
 
     [Header ("Ataque")]
     [SerializeField] private Transform location;
     [SerializeField] private Vector2 boxsize;
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
     [SerializeField] private float cdtime;
     [SerializeField] private LayerMask enemyLayers;
 
     [Header("Proyectil")]
     [SerializeField] private GameObject projectile;
+    [SerializeField] private int numArrows;
     private List<GameObject> pool = new List<GameObject>(); 
     [SerializeField] private float projectileSpeed;
     [SerializeField] private float projectilecdtime;
     private float projectilecd;
 
     [Header("Estadisticas_jugador")]
-    [SerializeField] private float vida;
+    [SerializeField] private int maxVida;
+    private int vida;
+    
+
+    public int Vida { get => vida; set => vida = value; }
+    public int MaxVida { get => maxVida; set => maxVida = value; }
+    public int NumArrows { get => numArrows; set => numArrows = value; }
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         player = GetComponent<Player>();
-        sprite = GetComponent<SpriteRenderer>();
+        vida = maxVida;
     }
 
     // Update is called once per frame
@@ -44,13 +50,14 @@ public class CombatPlayer : MonoBehaviour
         {
             projectilecd -= Time.deltaTime;
         }
+
         if (Input.GetButtonDown("Fire1") && cd <= 0)
         {
             StartCoroutine(Attacking());
             Attack();
             cd = cdtime;
         }
-        if (Input.GetButtonDown("Fire2") && projectilecd <= 0)
+        if (Input.GetButtonDown("Fire2") && projectilecd <= 0 && numArrows > 0)
         {
             ShootArrow();
             projectilecd = projectilecdtime;
@@ -76,11 +83,13 @@ public class CombatPlayer : MonoBehaviour
     private void ShootArrow()
     {
         GameObject arrow = getProjectile();
+        numArrows--;
         arrow.transform.position = location.position;
-        arrow.transform.rotation = location.rotation;
-
+        arrow.transform.rotation = Quaternion.Euler(location.rotation.x, location.rotation.y, -45);
+        
         if (transform.localScale.x < 0)
         {
+            arrow.transform.localScale = -arrow.transform.localScale;
             arrow.GetComponent<Rigidbody2D>().AddForce(new Vector2(-projectileSpeed, 0f), ForceMode2D.Force);
         }
         else
@@ -112,7 +121,7 @@ public class CombatPlayer : MonoBehaviour
         player.Speed = 10f;
     }
 
-    public void TomarDaño(float damage, Vector2 posicion)
+    public void TomarDaño(int damage, Vector2 posicion)
     {
         StartCoroutine(Invulnerabilidad());
         vida -= damage;

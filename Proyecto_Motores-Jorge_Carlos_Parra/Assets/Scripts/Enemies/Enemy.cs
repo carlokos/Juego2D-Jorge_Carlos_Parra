@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float vida;
-    [SerializeField] private float damage;
+    [SerializeField] private int vida;
+    [SerializeField] private int damage;
     private Animator animator;
     private SpriteRenderer sprite;
     private Enemy_mov mov;
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         vida -= damage;
         sprite.color = Color.red;

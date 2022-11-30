@@ -6,7 +6,7 @@ public class ArrowLifeSpan : MonoBehaviour
 {
     [SerializeField] private float lifeSpan;
     private float lifetime;
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
 
     private void Start()
     {

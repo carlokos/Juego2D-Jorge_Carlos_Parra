@@ -6,7 +6,7 @@ public class Projectile_lifeSpan : MonoBehaviour
 {
     [SerializeField] private float lifeSpan;
     private float lifetime;
-    [SerializeField] private float damage;
+    [SerializeField] private int damage;
     private Animator anim;
     // Start is called before the first frame update
     void Start()
