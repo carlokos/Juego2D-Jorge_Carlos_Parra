@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using TMPro;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
@@ -134,5 +135,4 @@ public class Player : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(controladorSuelo.position, boxSize);
     }
-
 }

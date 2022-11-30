@@ -7,9 +7,12 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private int vida;
     [SerializeField] private int damage;
+    [SerializeField] private int points;
     private Animator animator;
     private SpriteRenderer sprite;
     private Enemy_mov mov;
+    private GameObject UI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +46,8 @@ public class Enemy : MonoBehaviour
 
     private void Muerte()
     {
+        UI = GameObject.Find("UI");
+        UI.GetComponent<PointsManager>().addPoints(points);
         mov.Speed = 0;
         sprite.color = Color.white;
         animator.SetTrigger("Muerte");
