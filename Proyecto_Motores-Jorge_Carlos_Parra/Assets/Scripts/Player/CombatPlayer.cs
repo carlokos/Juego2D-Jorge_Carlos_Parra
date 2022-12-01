@@ -27,6 +27,9 @@ public class CombatPlayer : MonoBehaviour
     [Header("Estadisticas_jugador")]
     [SerializeField] private int maxVida;
     private int vida;
+
+    [Header("GameOver")]
+    [SerializeField] private GameObject gameOverImg;
     
 
     public int Vida { get => vida; set => vida = value; }
@@ -35,10 +38,13 @@ public class CombatPlayer : MonoBehaviour
 
     private void Start()
     {
+        gameOverImg.SetActive(false);
         animator = GetComponent<Animator>();
         player = GetComponent<Player>();
         vida = maxVida;
-        canAttack = true;
+        canAttack = true; 
+        Physics2D.IgnoreLayerCollision(7, 8, false);
+        Physics2D.IgnoreLayerCollision(7, 9, false);
     }
 
     // Update is called once per frame
@@ -132,6 +138,11 @@ public class CombatPlayer : MonoBehaviour
         animator.SetTrigger("Hurt");
         StartCoroutine(PerderelControl());
         player.Knockback(posicion);
+        if(vida <= 0)
+        {
+            Debug.Log("Ha entrado en el if");
+            PlayerKill();
+        }
     }
 
     private IEnumerator PerderelControl()
@@ -150,5 +161,11 @@ public class CombatPlayer : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Physics2D.IgnoreLayerCollision(7, 8, false);
         Physics2D.IgnoreLayerCollision(7, 9, false);
+    }
+
+    private void PlayerKill()
+    {
+        Time.timeScale = 0;
+        gameOverImg.SetActive(true);
     }
 }
