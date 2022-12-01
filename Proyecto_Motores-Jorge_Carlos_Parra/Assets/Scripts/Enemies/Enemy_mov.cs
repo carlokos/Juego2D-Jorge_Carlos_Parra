@@ -7,7 +7,6 @@ public class Enemy_mov : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private Rigidbody2D rb;
 
-    [SerializeField] private bool isStatic;
     [SerializeField] private bool isWalker;
     [SerializeField] private bool isPatrol;
     [SerializeField] private bool isFollowing;
@@ -27,11 +26,6 @@ public class Enemy_mov : MonoBehaviour
     public float Speed { get => speed; set => speed = value; }
     public bool CanFollow { get => canFollow; set => canFollow = value; }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -39,7 +33,7 @@ public class Enemy_mov : MonoBehaviour
         walldetected = Physics2D.OverlapCircle(wallCheck.position, detectionRadius, Floor);
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, detectionRadius, Floor);
 
-        if ((pitdetected || walldetected) && isGrounded && !canFollow)
+        if ((pitdetected || walldetected) && isGrounded && !isFollowing)
         {
             Flip();
         }
@@ -47,12 +41,6 @@ public class Enemy_mov : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isStatic)
-        {
-            //idle
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
-
         if (isWalker)
         {
             //animacion de moverse
@@ -117,7 +105,6 @@ public class Enemy_mov : MonoBehaviour
 
     public void StartFollowing()
     {
-        isStatic = false;
         isWalker = false;
         isPatrol = false;
         isFollowing = true;

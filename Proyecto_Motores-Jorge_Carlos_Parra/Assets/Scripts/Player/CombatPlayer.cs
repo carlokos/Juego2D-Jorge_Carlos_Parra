@@ -10,6 +10,7 @@ public class CombatPlayer : MonoBehaviour
 
     [Header ("Ataque")]
     [SerializeField] private Transform location;
+    private bool canAttack;
     [SerializeField] private Vector2 boxsize;
     [SerializeField] private int damage;
     [SerializeField] private float cdtime;
@@ -37,6 +38,7 @@ public class CombatPlayer : MonoBehaviour
         animator = GetComponent<Animator>();
         player = GetComponent<Player>();
         vida = maxVida;
+        canAttack = true;
     }
 
     // Update is called once per frame
@@ -51,7 +53,7 @@ public class CombatPlayer : MonoBehaviour
             projectilecd -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Fire1") && cd <= 0)
+        if (Input.GetButtonDown("Fire1") && cd <= 0 && canAttack) 
         {
             StartCoroutine(Attacking());
             Attack();
@@ -115,10 +117,12 @@ public class CombatPlayer : MonoBehaviour
 
     private IEnumerator Attacking()
     {
+        canAttack = false;
         player.Speed = 0;
         player.Jump1 = false;
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.5f);
         player.Speed = 10f;
+        canAttack = true;
     }
 
     public void TomarDaño(int damage, Vector2 posicion)
@@ -133,8 +137,10 @@ public class CombatPlayer : MonoBehaviour
     private IEnumerator PerderelControl()
     {
         player.SePuedeMover = false;
+        canAttack = false;
         yield return new WaitForSeconds(0.8f);
         player.SePuedeMover = true;
+        canAttack = true;
     }
 
     private IEnumerator Invulnerabilidad()

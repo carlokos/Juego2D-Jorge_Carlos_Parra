@@ -6,6 +6,7 @@ public class Projectile_lifeSpan : MonoBehaviour
 {
     [SerializeField] private float lifeSpan;
     private float lifetime;
+    [SerializeField] private bool canBeDestroyed;
     [SerializeField] private int damage;
     private Animator anim;
     // Start is called before the first frame update
@@ -38,6 +39,11 @@ public class Projectile_lifeSpan : MonoBehaviour
             StartCoroutine(endProjectile());
             collision.gameObject.GetComponent<CombatPlayer>().TomarDaño(damage,
                 collision.GetContact(0).normal);
+        }
+
+        if (collision.gameObject.CompareTag("Arrow") && canBeDestroyed)
+        {
+            StartCoroutine(endProjectile());
         }
     }
 }

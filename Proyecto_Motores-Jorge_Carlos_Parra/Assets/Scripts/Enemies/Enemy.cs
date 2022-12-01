@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Recovering()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         sprite.color = Color.white;
     }
 

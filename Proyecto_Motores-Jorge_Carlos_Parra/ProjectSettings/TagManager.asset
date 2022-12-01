@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemigo
   - projectile
+  - Arrow
   layers:
   - Default
   - TransparentFX

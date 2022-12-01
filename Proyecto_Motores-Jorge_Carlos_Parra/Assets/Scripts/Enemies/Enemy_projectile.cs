@@ -10,9 +10,8 @@ public class Enemy_projectile : MonoBehaviour
     private float shootColdDown;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private bool freqShooter;
-    [SerializeField] private bool watcher;
 
-    public bool Watcher { get => watcher; set => watcher = value; }
+    public bool FreqShooter { get => freqShooter; set => freqShooter = value; }
 
 
     // Start is called before the first frame update
