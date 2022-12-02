@@ -30,7 +30,8 @@ public class CombatPlayer : MonoBehaviour
 
     [Header("GameOver")]
     [SerializeField] private GameObject gameOverImg;
-    
+
+
 
     public int Vida { get => vida; set => vida = value; }
     public int MaxVida { get => maxVida; set => maxVida = value; }
@@ -39,6 +40,7 @@ public class CombatPlayer : MonoBehaviour
     private void Start()
     {
         gameOverImg.SetActive(false);
+        gameOverImg.GetComponent<CanvasGroup>().alpha = 0;
         animator = GetComponent<Animator>();
         player = GetComponent<Player>();
         vida = maxVida;
@@ -65,7 +67,7 @@ public class CombatPlayer : MonoBehaviour
             Attack();
             cd = cdtime;
         }
-        if (Input.GetButtonDown("Fire2") && projectilecd <= 0 && numArrows > 0)
+        if (Input.GetButtonDown("Fire2") && projectilecd <= 0 && numArrows > 0 && canAttack)
         {
             ShootArrow();
             projectilecd = projectilecdtime;
@@ -140,8 +142,7 @@ public class CombatPlayer : MonoBehaviour
         player.Knockback(posicion);
         if(vida <= 0)
         {
-            Debug.Log("Ha entrado en el if");
-            PlayerKill();
+            isDead();
         }
     }
 
@@ -163,9 +164,14 @@ public class CombatPlayer : MonoBehaviour
         Physics2D.IgnoreLayerCollision(7, 9, false);
     }
 
-    private void PlayerKill()
+    private void isDead()
     {
         Time.timeScale = 0;
         gameOverImg.SetActive(true);
+        while (gameOverImg.GetComponent<CanvasGroup>().alpha < 1)
+        {
+            gameOverImg.GetComponent<CanvasGroup>().alpha += 0.005f;
+        }
+        //paramos música
     }
 }

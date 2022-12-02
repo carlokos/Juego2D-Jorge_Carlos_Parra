@@ -11,7 +11,7 @@ public class Enemy_mov : MonoBehaviour
     [SerializeField] private bool isPatrol;
     [SerializeField] private bool isFollowing;
     [SerializeField] private bool walkRight;
-    [SerializeField] private bool walldetected, pitdetected, isGrounded;
+    private bool walldetected, pitdetected, isGrounded;
 
     [SerializeField] private Transform wallCheck, pitCheck, groundCheck;
     [SerializeField] private float detectionRadius;
@@ -23,9 +23,21 @@ public class Enemy_mov : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private bool canFollow;
 
+    [SerializeField] private bool isGhost;
+
+
+
     public float Speed { get => speed; set => speed = value; }
     public bool CanFollow { get => canFollow; set => canFollow = value; }
+    public bool IsFollowing { get => isFollowing; set => isFollowing = value; }
 
+    private void Start()
+    {
+        if (isGhost)
+        {
+            Physics2D.IgnoreLayerCollision(3, 8, true);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
