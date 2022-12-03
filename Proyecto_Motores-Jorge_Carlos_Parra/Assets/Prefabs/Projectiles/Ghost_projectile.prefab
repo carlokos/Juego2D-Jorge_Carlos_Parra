@@ -169,4 +169,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeSpan: 5
   canBeDestroyed: 1
-  damage: 3
+  damage: 2

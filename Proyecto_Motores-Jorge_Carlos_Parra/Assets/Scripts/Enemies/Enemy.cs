@@ -8,10 +8,17 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int vida;
     [SerializeField] private int damage;
     [SerializeField] private int points;
+    [SerializeField] private Transform hitbox;
+    [SerializeField] private Transform range;
+    [SerializeField] private GameObject drop;
+    [SerializeField] private bool canDrop;
     private Animator animator;
+    private bool isAttacking;
     private SpriteRenderer sprite;
     private Enemy_mov mov;
     private GameObject UI;
+
+    public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -19,12 +26,6 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         mov = GetComponent<Enemy_mov>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void TakeDamage(int damage)
@@ -51,6 +52,12 @@ public class Enemy : MonoBehaviour
         mov.Speed = 0;
         sprite.color = Color.white;
         animator.SetTrigger("Muerte");
+        if (canDrop)
+        {
+            GameObject item = drop;
+            item.transform.position = gameObject.transform.position;
+            Instantiate(item);
+        }
         Destroy(gameObject, .5f);
     }
 
@@ -61,5 +68,23 @@ public class Enemy : MonoBehaviour
             collision.gameObject.GetComponent<CombatPlayer>().TomarDaño(damage, 
                 collision.GetContact(0).normal);
         }
+    }
+
+    public void final_Ani()
+    {
+        animator.SetBool("Attaking", false);
+        isAttacking = false;
+        range.GetComponent<Collider2D>().enabled = true;
+        mov.Rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    public void ColliderWeaponTrue()
+    {
+        hitbox.GetComponent<Collider2D>().enabled = true;
+    }
+
+    public void ColliderWeaponFalse()
+    {
+        hitbox.GetComponent<Collider2D>().enabled = false;
     }
 }

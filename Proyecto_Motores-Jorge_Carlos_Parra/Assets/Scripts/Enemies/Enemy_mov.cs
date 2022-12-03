@@ -30,12 +30,13 @@ public class Enemy_mov : MonoBehaviour
     public float Speed { get => speed; set => speed = value; }
     public bool CanFollow { get => canFollow; set => canFollow = value; }
     public bool IsFollowing { get => isFollowing; set => isFollowing = value; }
+    public Rigidbody2D Rb { get => rb; set => rb = value; }
 
     private void Start()
     {
         if (isGhost)
         {
-            Physics2D.IgnoreLayerCollision(3, 8, true);
+            Physics2D.IgnoreLayerCollision(3, 10, true);
         }
     }
     // Update is called once per frame
@@ -45,7 +46,7 @@ public class Enemy_mov : MonoBehaviour
         walldetected = Physics2D.OverlapCircle(wallCheck.position, detectionRadius, Floor);
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, detectionRadius, Floor);
 
-        if ((pitdetected || walldetected) && isGrounded && !isFollowing)
+        if ((pitdetected || walldetected) && isGrounded && !isFollowing && !isGhost)
         {
             Flip();
         }

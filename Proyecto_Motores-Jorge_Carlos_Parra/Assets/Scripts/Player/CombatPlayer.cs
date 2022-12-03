@@ -15,6 +15,7 @@ public class CombatPlayer : MonoBehaviour
     [SerializeField] private int damage;
     [SerializeField] private float cdtime;
     [SerializeField] private LayerMask enemyLayers;
+    [SerializeField] private LayerMask ghostLayers;
 
     [Header("Proyectil")]
     [SerializeField] private GameObject projectile;
@@ -77,8 +78,14 @@ public class CombatPlayer : MonoBehaviour
     private void Attack()
     {
         Collider2D[] foes = Physics2D.OverlapBoxAll(location.position, boxsize, 0, enemyLayers);
+        Collider2D[] ghost = Physics2D.OverlapBoxAll(location.position, boxsize, 0, ghostLayers);
         animator.SetTrigger("Attack");
         foreach (Collider2D colisionador in foes)
+        {
+            colisionador.transform.GetComponent<Enemy>().TakeDamage(damage);
+        }
+
+        foreach (Collider2D colisionador in ghost)
         {
             colisionador.transform.GetComponent<Enemy>().TakeDamage(damage);
         }
@@ -159,9 +166,11 @@ public class CombatPlayer : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(7, 8, true);
         Physics2D.IgnoreLayerCollision(7, 9, true);
+        Physics2D.IgnoreLayerCollision(7, 10, true);
         yield return new WaitForSeconds(2f);
         Physics2D.IgnoreLayerCollision(7, 8, false);
         Physics2D.IgnoreLayerCollision(7, 9, false);
+        Physics2D.IgnoreLayerCollision(7, 10, false);
     }
 
     private void isDead()

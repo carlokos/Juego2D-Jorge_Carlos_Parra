@@ -26,6 +26,7 @@ public class ArrowManager : MonoBehaviour
         else
         {
             arrowImg.enabled = true;
+            numArrows.enabled = true;
             numArrows.text = "x " + player.NumArrows;
         }
     }

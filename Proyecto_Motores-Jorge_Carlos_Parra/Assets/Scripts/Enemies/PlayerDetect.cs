@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerDetect : MonoBehaviour
 {
     [SerializeField] private bool Watcher;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && transform.GetComponentInParent<Enemy_mov>().CanFollow)
@@ -15,6 +16,7 @@ public class PlayerDetect : MonoBehaviour
         if (collision.CompareTag("Player") && Watcher)
         {
             transform.GetComponentInParent<Enemy_projectile>().FreqShooter = true;
+            Watcher = false;
             transform.GetComponentInParent<Enemy_projectile>().Shoot();
         }
     }
