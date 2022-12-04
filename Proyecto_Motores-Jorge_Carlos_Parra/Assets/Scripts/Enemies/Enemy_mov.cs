@@ -110,7 +110,7 @@ public class Enemy_mov : MonoBehaviour
         }
     }
 
-    public void Flip()
+    private void Flip()
     {
         walkRight = !walkRight;
         transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);

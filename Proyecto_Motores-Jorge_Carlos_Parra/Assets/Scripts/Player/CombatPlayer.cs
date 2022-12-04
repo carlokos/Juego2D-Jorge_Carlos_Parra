@@ -6,6 +6,7 @@ public class CombatPlayer : MonoBehaviour
 {
     private Player player;
     private float cd;
+    private bool isTalking;
     private Animator animator;
 
     [Header ("Ataque")]
@@ -32,14 +33,22 @@ public class CombatPlayer : MonoBehaviour
     [Header("GameOver")]
     [SerializeField] private GameObject gameOverImg;
 
-
-
+    [Header("Sounds")]
+    [SerializeField] private AudioSource arrowSound;
+    [SerializeField] private AudioSource swordSound;
+    [SerializeField] private AudioSource deathSound;
+    [SerializeField] private AudioSource hitSound;
+    [SerializeField] private BGMusic_manager AudioManager;
+ 
     public int Vida { get => vida; set => vida = value; }
     public int MaxVida { get => maxVida; set => maxVida = value; }
     public int NumArrows { get => numArrows; set => numArrows = value; }
+    public bool CanAttack { get => canAttack; set => canAttack = value; }
+    public bool IsTalking { get => isTalking; set => isTalking = value; }
 
     private void Start()
     {
+        isTalking = false;
         gameOverImg.SetActive(false);
         gameOverImg.GetComponent<CanvasGroup>().alpha = 0;
         animator = GetComponent<Animator>();
@@ -117,6 +126,7 @@ public class CombatPlayer : MonoBehaviour
 
     public GameObject getProjectile()
     {
+        arrowSound.Play();
         for(int i = 0; i < pool.Count; i++)
         {
             if (!pool[i].activeInHierarchy)
@@ -132,16 +142,18 @@ public class CombatPlayer : MonoBehaviour
 
     private IEnumerator Attacking()
     {
+        swordSound.Play();
         canAttack = false;
         player.Speed = 0;
         player.Jump1 = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.4f);
         player.Speed = 10f;
         canAttack = true;
     }
 
     public void TomarDaño(int damage, Vector2 posicion)
     {
+        hitSound.Play();
         StartCoroutine(Invulnerabilidad());
         vida -= damage;
         animator.SetTrigger("Hurt");
@@ -175,12 +187,13 @@ public class CombatPlayer : MonoBehaviour
 
     private void isDead()
     {
+        deathSound.Play();
         Time.timeScale = 0;
         gameOverImg.SetActive(true);
         while (gameOverImg.GetComponent<CanvasGroup>().alpha < 1)
         {
             gameOverImg.GetComponent<CanvasGroup>().alpha += 0.005f;
         }
-        //paramos música
+        AudioManager.GameOver();
     }
 }

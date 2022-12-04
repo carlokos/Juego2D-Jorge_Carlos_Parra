@@ -7,19 +7,24 @@ public class Item_drop : MonoBehaviour
     [SerializeField] private bool isArrow;
     [SerializeField] private bool isHeart;
     [SerializeField] private int stocks;
+    [SerializeField] private AudioSource sound;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isArrow && collision.gameObject.CompareTag("Player"))
         {
             collision.GetComponent<CombatPlayer>().NumArrows += stocks;
-            Destroy(gameObject);
+            sound.Play();
+            Destroy(gameObject, 0.2f);
         }
 
         if (isHeart && collision.gameObject.CompareTag("Player"))
-        {
+        {    
             collision.GetComponent<CombatPlayer>().Vida += 1;
-            Destroy(gameObject);
+            sound.Play();
+            Destroy(gameObject, 0.2f);
         }
     }
+
+        
 }

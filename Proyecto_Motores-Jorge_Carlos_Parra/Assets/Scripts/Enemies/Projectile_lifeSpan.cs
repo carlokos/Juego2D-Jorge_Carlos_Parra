@@ -43,6 +43,7 @@ public class Projectile_lifeSpan : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Arrow") && canBeDestroyed)
         {
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
             StartCoroutine(endProjectile());
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private CombatPlayer player;
     private bool isPaused;
 
     // Start is called before the first frame update
@@ -21,9 +22,10 @@ public class PauseMenuManager : MonoBehaviour
 
     public void PauseGame()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && !isPaused)
+        if(Input.GetKeyDown(KeyCode.Escape) && !isPaused && !player.IsTalking)
         {  
             pauseMenu.SetActive(true);
+            player.CanAttack = false;
             isPaused = true;
             Time.timeScale = 0;
         } else if(Input.GetKeyDown(KeyCode.Escape) && isPaused)
@@ -37,5 +39,6 @@ public class PauseMenuManager : MonoBehaviour
         pauseMenu.SetActive(false);
         isPaused = false;
         Time.timeScale = 1;
+        player.CanAttack = true;
     }
 }

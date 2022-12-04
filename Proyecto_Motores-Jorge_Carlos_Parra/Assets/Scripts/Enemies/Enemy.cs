@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform range;
     [SerializeField] private GameObject drop;
     [SerializeField] private bool canDrop;
+    [SerializeField] private AudioSource enemyDead;
     private Animator animator;
     private bool isAttacking;
     private SpriteRenderer sprite;
@@ -47,6 +48,8 @@ public class Enemy : MonoBehaviour
 
     private void Muerte()
     {
+        enemyDead.Play();
+        gameObject.GetComponent<Collider2D>().enabled = false;
         UI = GameObject.Find("UI");
         UI.GetComponent<PointsManager>().addPoints(points);
         mov.Speed = 0;

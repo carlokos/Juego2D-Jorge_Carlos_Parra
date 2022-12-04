@@ -10,6 +10,7 @@ public class Enemy_projectile : MonoBehaviour
     private float shootColdDown;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private bool freqShooter;
+    [SerializeField] private AudioSource fireSound;
 
     public bool FreqShooter { get => freqShooter; set => freqShooter = value; }
 
@@ -36,6 +37,7 @@ public class Enemy_projectile : MonoBehaviour
 
     public void Shoot()
     {
+        fireSound.Play();
         GameObject fireball = getFireball();
         fireball.transform.position = transform.position;
 
