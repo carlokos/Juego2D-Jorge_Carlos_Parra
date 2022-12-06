@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public bool Jump1 { get => jump; set => jump = value; }
     public Animator Animator { get => animator; set => animator = value; }
     public bool SePuedeMover { get => sePuedeMover; set => sePuedeMover = value; }
+    public Rigidbody2D Rb { get => player; set => player = value; }
 
     // Start is called before the first frame update
     void Start()
