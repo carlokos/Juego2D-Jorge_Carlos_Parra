@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4b7f66cf8adb749a208982a8c426b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 5
+  vida: 2
   damage: 1
   points: 10
   hitbox: {fileID: 0}
@@ -226,7 +226,6 @@ MonoBehaviour:
   speed: 100
   rb: {fileID: 9215584501414032865}
   isWalker: 1
-  isPatrol: 0
   isFollowing: 0
   walkRight: 0
   wallCheck: {fileID: 9215584502720259845}
@@ -236,10 +235,6 @@ MonoBehaviour:
   Floor:
     serializedVersion: 2
     m_Bits: 8
-  pointA: {fileID: 0}
-  pointB: {fileID: 0}
-  goToA: 0
-  goToB: 0
   player: {fileID: 0}
   canFollow: 0
   isGhost: 0

@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
         if (onFloor)
         {
             animator.SetBool("Falling", false);
+            animator.SetBool("Jumping", false);
         }
 
         if (Input.GetButtonUp("Jump"))
@@ -105,7 +106,7 @@ public class Player : MonoBehaviour
     }
 
     public void Knockback(Vector2 puntoGolpe)
-    {
+    {               
         player.velocity = new Vector2(-knockback.x * puntoGolpe.x, knockback.y);
     }
 
@@ -117,6 +118,7 @@ public class Player : MonoBehaviour
             player.AddForce(Vector2.down * player.velocity.y * (1 - multiplicadorCancelarSalto), ForceMode2D.Impulse);
             animator.SetBool("Jumping", true);
         }
+        fall();
         botonSaltoPulsado = true;
         jump = false;
     }

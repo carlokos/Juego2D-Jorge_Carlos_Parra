@@ -8,7 +8,7 @@ public class Enemy_mov : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
 
     [SerializeField] private bool isWalker;
-    [SerializeField] private bool isPatrol;
+    
     [SerializeField] private bool isFollowing;
     [SerializeField] private bool walkRight;
     private bool walldetected, pitdetected, isGrounded;
@@ -17,15 +17,12 @@ public class Enemy_mov : MonoBehaviour
     [SerializeField] private float detectionRadius;
     [SerializeField] private LayerMask Floor;
 
-    [SerializeField] private Transform pointA, pointB;
-    [SerializeField] private bool goToA, goToB;
+    
 
     [SerializeField] private Transform player;
     [SerializeField] private bool canFollow;
 
     [SerializeField] private bool isGhost;
-
-
 
     public float Speed { get => speed; set => speed = value; }
     public bool CanFollow { get => canFollow; set => canFollow = value; }
@@ -68,34 +65,6 @@ public class Enemy_mov : MonoBehaviour
             }
         }
 
-        if (isPatrol)
-        {
-            //animacion de moverse
-            if (goToA)
-            {
-                rb.velocity = new Vector2(-speed * Time.deltaTime, rb.velocity.y);
-
-                if(Vector2.Distance(transform.position, pointA.position) < 0.2f)
-                {
-                    Flip();
-                    goToA = false;
-                    goToB = true;
-                }
-            }
-
-            if (goToB)
-            {
-                rb.velocity = new Vector2(speed * Time.deltaTime, rb.velocity.y);
-
-                if (Vector2.Distance(transform.position, pointA.position) < 0.2f)
-                {
-                    Flip();
-                    goToA = true;
-                    goToB = false;
-                }
-            }
-        }
-
         if (isFollowing)
         {
             rb.transform.position = Vector2.MoveTowards(rb.transform.position, player.transform.position, speed * Time.deltaTime);
@@ -119,7 +88,6 @@ public class Enemy_mov : MonoBehaviour
     public void StartFollowing()
     {
         isWalker = false;
-        isPatrol = false;
         isFollowing = true;
     }
 }

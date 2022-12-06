@@ -208,7 +208,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   projectile: {fileID: 6750170370993332018, guid: f7122e2760384b34596eac7928309a5d, type: 3}
-  numArrows: 0
+  numArrows: 10
   projectileSpeed: 70
   projectilecdtime: 0.3
   maxVida: 7
@@ -217,6 +217,7 @@ MonoBehaviour:
   swordSound: {fileID: 1950491340}
   deathSound: {fileID: 1950491339}
   hitSound: {fileID: 1950491338}
+  AudioManager: {fileID: 0}
 --- !u!114 &6799174119288992163
 MonoBehaviour:
   m_ObjectHideFlags: 0
