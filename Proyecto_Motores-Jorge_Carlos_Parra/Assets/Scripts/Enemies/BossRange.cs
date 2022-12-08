@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BossRange : MonoBehaviour
 {
+    //script que activa el ataque del boss al entrar en el rango
     private Enemy boss;
     private Animator anim;
 
@@ -20,6 +21,7 @@ public class BossRange : MonoBehaviour
             anim.SetBool("Idle", false);
             anim.SetBool("Attacking", true);
             boss.IsAttacking = true;
+            //desactivamos el objeto del rango para que solo ataque una vez 
             GetComponent<Collider2D>().enabled = false;
         }
     }

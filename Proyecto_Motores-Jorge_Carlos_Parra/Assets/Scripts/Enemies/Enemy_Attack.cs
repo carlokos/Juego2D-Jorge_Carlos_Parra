@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy_Attack : MonoBehaviour
 {
+    //al activarse este script, llamara la funcion de jugador que le causa daño
     [SerializeField] private int damage;
     [SerializeField] private AudioSource attackSound;
 

@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4b7f66cf8adb749a208982a8c426b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 7
+  vida: 15
   damage: 0
   points: 50
   hitbox: {fileID: 1997664388993258628}

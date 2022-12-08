@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Item_drop : MonoBehaviour
 {
+    //Script basico que controla los drops que puede recoger el jugador
     [SerializeField] private bool isArrow;
     [SerializeField] private bool isHeart;
     [SerializeField] private int stocks;

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerDetect : MonoBehaviour
 {
+    /*
+     * Lo tiene algunos enemigos para detectar al jugador y hacer las siguientes acciones:
+     * -Perseguir al jugador
+     * -Perseguir al jugador y empezar a disparar proyectiles
+     */
     [SerializeField] private bool Watcher;
 
     private void OnTriggerEnter2D(Collider2D collision)

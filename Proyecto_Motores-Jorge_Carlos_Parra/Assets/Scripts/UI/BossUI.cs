@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class BossUI : MonoBehaviour
 {
+    /*
+     * Script del boss que contiene su barra de vida, ademas
+     * se actualiza con su vida actual mediante una funcion en el update
+     */
     [SerializeField] private Image bossHealthBar;
     private int bossmaxHealth;
     private Enemy boss;

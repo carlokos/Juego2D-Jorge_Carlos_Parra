@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Goblin_behaviour : MonoBehaviour
 {
+    //Script que controla las animaciones del enemigo Goblin
     private Enemy_mov mov;
     private Enemy enemy;
     private Animator anim;

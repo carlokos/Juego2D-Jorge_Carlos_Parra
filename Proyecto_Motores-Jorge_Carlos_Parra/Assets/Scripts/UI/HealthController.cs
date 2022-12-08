@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
+    /*
+     * Script que controla la vida del jugador en la UI, es un sistema de corazones
+     * asi que le pasamos las imagenes y una array de los corazones, vamos rellenando
+     * esta array con las imagenes dependiendo de la vida del jugador
+     */
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
 

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class magicHand : MonoBehaviour
 {
+    /*
+     * Script de un movimiento del boss, una mano que persigue al jugador
+     * las funciones son publicas ya que la llamamos desde el script del Boss
+     */
     [SerializeField] private float speed;
     [SerializeField] private Player pj;
     private Animator anim;

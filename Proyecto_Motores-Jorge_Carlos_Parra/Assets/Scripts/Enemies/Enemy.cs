@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    /*
+     * Script basico del enemigo, tiene informacion como su vida, daño y los puntos que otorga,
+     * y si suelta algun objeto al morir.
+     * tambien controla si tiene un sistema de combate y la animacion de muerte de los enemigos
+     */
     [SerializeField] private int vida;
     [SerializeField] private int damage;
     [SerializeField] private int points;

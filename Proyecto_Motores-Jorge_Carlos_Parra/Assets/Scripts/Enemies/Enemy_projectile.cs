@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Enemy_projectile : MonoBehaviour
 {
+    /*
+     * Script para los proyectiles de los enemigos, tiene informacion como su velocidad
+     * y su manera de disparar
+     */
     [SerializeField] private GameObject projectile;
     private List<GameObject> pool = new List<GameObject>();
     [SerializeField] private float timeToShoot;
@@ -35,6 +39,7 @@ public class Enemy_projectile : MonoBehaviour
         }
     }
 
+    //empieza en la posicion del jugador y va avanzando segun la direccion donde el jugador este mirando
     public void Shoot()
     {
         fireSound.Play();
@@ -53,7 +58,10 @@ public class Enemy_projectile : MonoBehaviour
         }
         shootColdDown = timeToShoot;
     }
-
+    /*
+     * Sistema de reciclaje, comprueba si ya existe el objeto en la herarquia, si no existe crea uno
+     * si existe lo vuelve activo
+     */
     private GameObject getFireball()
     {
         for (int i = 0; i < pool.Count; i++)

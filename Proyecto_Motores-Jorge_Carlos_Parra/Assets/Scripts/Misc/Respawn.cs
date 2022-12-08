@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Respawn : MonoBehaviour
 {
+    //Script para el respawn, vuelve a la posicion que se le indique
     [SerializeField] private GameObject position;
 
     private void OnCollisionEnter2D(Collision2D collision)

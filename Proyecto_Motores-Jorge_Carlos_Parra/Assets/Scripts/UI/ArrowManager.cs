@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ArrowManager : MonoBehaviour
 {
+    //Script de la UI que indica cuantas flechas tiene el jugador
     [SerializeField] Image arrowImg;
     [SerializeField] TextMeshProUGUI numArrows;
     private CombatPlayer player;

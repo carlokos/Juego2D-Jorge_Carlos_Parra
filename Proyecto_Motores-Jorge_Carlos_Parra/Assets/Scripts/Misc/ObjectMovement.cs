@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ObjectMovement : MonoBehaviour
 {
+    /*
+     * Script que usamos para mover objetos, le pasamos un array de posiciones y con el index desde cero vamos
+     * sumando para avanzar al siguiente, al llegar al maximo le restamos para que el objeto recorra los mismos puntos
+     * pero al contrario
+     */
     [SerializeField] private Transform[] positions;
     [SerializeField] private float speed;
     private int index;

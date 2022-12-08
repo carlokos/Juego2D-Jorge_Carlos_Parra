@@ -35,7 +35,7 @@ public class BossBehaviour : MonoBehaviour
     [Header("Muerte")]
     [SerializeField] private AudioSource dead;
     [SerializeField] private TrigerBoss bossTrigger;
-    
+
     private void Start()
     {
         boss = GetComponent<Enemy>();
@@ -46,6 +46,7 @@ public class BossBehaviour : MonoBehaviour
 
     private void Update()
     {
+        //cada cierto tiempo ira teletransportandose y lanzando hechizos
         cdCasting -= Time.deltaTime;
         if(cdCasting <= 0 && !isCasting && !boss.IsAttacking)
         {

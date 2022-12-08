@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BGMusic_manager : MonoBehaviour
 {
+    //funciones publicas que llamamos cuando queremos cambiar la musica
     [SerializeField] private AudioSource GameOverMusic;
     [SerializeField] private AudioSource BGMusic;
     [SerializeField] private AudioSource BossMusic;

@@ -4,6 +4,12 @@ using TMPro;
 
 public class Dialogues : MonoBehaviour
 {
+    /*
+     * Script para los dialogos del juego, se le pasa los elementos de la UI y con
+     * una array de string se le va colocando el texto.
+     * Ademas comprueba si el jugador esta en el rango para hablar y muestra la señal para activar
+     * los dialogos
+     */
     private bool PlayerInRange;
     [SerializeField] private GameObject mark;
     [SerializeField] private GameObject dialoguePanel;

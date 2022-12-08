@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadNextLevel : MonoBehaviour
 {
+    //script basico que carga el siguiente nivel 
     private Scene SceneToLoad;
 
     private void Awake()

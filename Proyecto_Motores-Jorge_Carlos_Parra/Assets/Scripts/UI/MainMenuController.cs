@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    //clase que se encarga de manejar las escenas 
     private Scene currentScene;
 
     private void Start()
@@ -21,6 +22,11 @@ public class MainMenuController : MonoBehaviour
     {
         Debug.Log("Cerrando juego... no funciona en unity recuerda");
         Application.Quit();
+    }
+
+    public void howToPlay()
+    {
+        SceneManager.LoadScene(5);
     }
 
     public void goToMenu()

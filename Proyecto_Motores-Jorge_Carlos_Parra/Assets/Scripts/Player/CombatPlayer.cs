@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class CombatPlayer : MonoBehaviour
 {
+    //script de combate del jugador, tambien controla los sonidos y el gameover
     private Player player;
     private float cd;
     private bool isTalking;
     private bool dead;
     private Animator animator;
 
+    //variables del ataque, como su tamaño, tiempo y a quienes afecta
     [Header ("Ataque")]
     [SerializeField] private Transform location;
     private bool canAttack;
@@ -19,6 +21,7 @@ public class CombatPlayer : MonoBehaviour
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private LayerMask ghostLayers;
 
+    //variables del proyectil del jugador, como cuantos tiene,  un sistema de pool y el tiempo de espera
     [Header("Proyectil")]
     [SerializeField] private GameObject projectile;
     [SerializeField] private int numArrows;
@@ -27,6 +30,7 @@ public class CombatPlayer : MonoBehaviour
     [SerializeField] private float projectilecdtime;
     private float projectilecd;
 
+    //estadisticas del jugador
     [Header("Estadisticas_jugador")]
     [SerializeField] private int maxVida;
     private int vida;
@@ -35,6 +39,7 @@ public class CombatPlayer : MonoBehaviour
     [SerializeField] private GameObject gameOverImg;
     [SerializeField] private GameObject[] cancelEnable;
 
+    //los sonidos del jugador
     [Header("Sounds")]
     [SerializeField] private AudioSource arrowSound;
     [SerializeField] private AudioSource swordSound;
@@ -59,6 +64,7 @@ public class CombatPlayer : MonoBehaviour
         vida = maxVida;
         canAttack = true;
         dead = false;
+        //es importante que nos aseguremos que este las capas activas
         Physics2D.IgnoreLayerCollision(7, 8, false);
         Physics2D.IgnoreLayerCollision(7, 9, false);
     }
@@ -88,6 +94,8 @@ public class CombatPlayer : MonoBehaviour
         }
     }
 
+    //miramos si lo que hay en la caja es enemigo y llamamos a su funcion de daño,
+    //lo comprobamos mediante un layer
     private void Attack()
     {
         Collider2D[] foes = Physics2D.OverlapBoxAll(location.position, boxsize, 0, enemyLayers);
@@ -110,6 +118,7 @@ public class CombatPlayer : MonoBehaviour
         Gizmos.DrawWireCube(location.position, boxsize);
     }
 
+    //empieza en la posicion del jugador y va avanzando segun la direccion donde el jugador este mirando
     private void ShootArrow()
     {
         GameObject arrow = getProjectile();
@@ -128,6 +137,10 @@ public class CombatPlayer : MonoBehaviour
         }
     }
 
+    /*
+     * Sistema de reciclaje, comprueba si ya existe el objeto en la herarquia, si no existe crea uno
+     * si existe lo vuelve activo
+     */
     public GameObject getProjectile()
     {
         arrowSound.Play();
@@ -189,6 +202,7 @@ public class CombatPlayer : MonoBehaviour
         Physics2D.IgnoreLayerCollision(7, 10, false);
     }
 
+    //llamamos al menu de gameover
     private void isDead()
     {
         deathSound.Play();

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class TrigerBoss : MonoBehaviour
 {
+    /*
+     * Script para activar el jefe del juego
+     * le pasamos las cosas de la UI del jefe, el propio jefe y elementos del escenario
+     * tambien modificamos la musica
+     */
     [SerializeField] private GameObject[] activarObjetos;
     [SerializeField] private GameObject boss;
     [SerializeField] private AudioSource deadBoss;
@@ -29,6 +34,7 @@ public class TrigerBoss : MonoBehaviour
         StartCoroutine(bossActivation());
     }
 
+    //metodo que llamamos al terminar la pelea, desactiva todo lo anterior
     public void desactivateObjects()
     {
         deadBoss.Play();
@@ -42,6 +48,7 @@ public class TrigerBoss : MonoBehaviour
         }
     }
 
+    //activa al jefe junto a su musica y su UI
     private IEnumerator bossActivation()
     {
         PMM.GetComponent<PauseMenuManager>().HaveSpecialUI = true;
@@ -52,9 +59,8 @@ public class TrigerBoss : MonoBehaviour
         bossHealth.SetActive(true);
         sonido.BossStart();
         attack.CanAttack = true;
-        player.Speed = 10;
+        player.Speed = 12;
         this.gameObject.SetActive(false);
-        Debug.Log("Boss Activado");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

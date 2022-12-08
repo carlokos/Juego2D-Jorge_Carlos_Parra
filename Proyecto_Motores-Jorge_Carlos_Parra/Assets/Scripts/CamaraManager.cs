@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CamaraManager : MonoBehaviour
 {
+    /*
+     * Script para el seguimiento de la camara, seguira al jugador y se adelantara un poco para que pueda ver
+     * mejor lo que tiene delante, al cambiar de direccion se adaptara con un poquito de retraso para que 
+     * quede mejor
+     */
     public SpriteRenderer target;
     private Vector3 TargetPos;
 

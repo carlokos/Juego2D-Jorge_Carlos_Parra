@@ -7,6 +7,9 @@ using Color = UnityEngine.Color;
 
 public class Player : MonoBehaviour
 {
+    /*
+     * Script básico del jugador y su movimiento, tiene informacion como su velocidad, salto y demas
+     */
     private Rigidbody2D player;
     private Animator animator;
     [SerializeField] private float speed;
@@ -20,6 +23,7 @@ public class Player : MonoBehaviour
     private bool jump;
 
     [Header("SaltoRegulable")]
+    //un multplicador que ha soltar el boton de salto aplicamos en la gravedad del jugadro
     [Range(0, 1)] [SerializeField] private float multiplicadorCancelarSalto;
     [SerializeField] private float multiplicadorGravedad;
     private float escalaGravedad;
@@ -57,11 +61,13 @@ public class Player : MonoBehaviour
             animator.SetBool("Jumping", false);
         }
 
+        //si lo mantiene pulsado llamamos a este metodo, como el anterior if activa el bool de salto no hace falta volver a activarlo
         if (Input.GetButtonUp("Jump"))
         {
             BotonSaltoPulsado();
         }
         
+        //le pasamos la velocidad al animator para que se mueva correctamente
         animator.SetFloat("Speed", Mathf.Abs(player.velocity.x));
         onFloor = Physics2D.OverlapBox(controladorSuelo.position, boxSize, 0, isFloor);
     }
@@ -95,6 +101,7 @@ public class Player : MonoBehaviour
             jump = false;    
     }
 
+    //funcion basica de salto, añade un impulso
     private void Jump()
     {
         player.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -110,6 +117,7 @@ public class Player : MonoBehaviour
     }
 
 
+    //salto regulable, mientras este subiendo el jugador (manteniendo el boton pulsado) iremos aplicacndo gravedad hacia abajo poco a poco
     private void BotonSaltoPulsado()
     {
         if(player.velocity.y > 0)
@@ -122,6 +130,7 @@ public class Player : MonoBehaviour
         jump = false;
     }
 
+    //controla las animaciones de caida
     private void fall()
     {
         if(player.velocity.y < 0)

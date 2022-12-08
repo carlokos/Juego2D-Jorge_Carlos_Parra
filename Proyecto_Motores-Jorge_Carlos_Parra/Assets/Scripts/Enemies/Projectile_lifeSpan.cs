@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Projectile_lifeSpan : MonoBehaviour
 {
+    /*
+     * Script que controla la vida util de los proyectiles
+     * tambien su daño, animacion y si puede ser destruido
+     */
     [SerializeField] private float lifeSpan;
     private float lifetime;
     [SerializeField] private bool canBeDestroyed;

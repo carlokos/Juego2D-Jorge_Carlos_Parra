@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PauseMenuManager : MonoBehaviour
 {
+    /*
+     * Script que se encarga del menu de pausa, si hay algun UI especial (como la barra de vida de un boss) esta desaparece temporalmente)
+     */
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private CombatPlayer player;
     [SerializeField] private GameObject[] cancelEnable;

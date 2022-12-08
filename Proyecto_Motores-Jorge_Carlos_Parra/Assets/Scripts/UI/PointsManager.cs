@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PointsManager : MonoBehaviour
 {
+    //Script que se encarga de mostrar los puntos del jugador
     [SerializeField] TextMeshProUGUI lblPoints;
     private int points;
     // Start is called before the first frame update

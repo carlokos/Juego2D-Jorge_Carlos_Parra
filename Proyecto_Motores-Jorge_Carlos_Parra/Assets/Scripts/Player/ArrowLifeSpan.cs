@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ArrowLifeSpan : MonoBehaviour
 {
+    //Script de las flechas del jugador, indica su duracion y daño
     [SerializeField] private float lifeSpan;
     private float lifetime;
     [SerializeField] private int damage;
