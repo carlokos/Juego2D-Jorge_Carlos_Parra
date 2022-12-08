@@ -6,12 +6,17 @@ public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private CombatPlayer player;
+    [SerializeField] private GameObject[] cancelEnable;
     private bool isPaused;
+    private bool haveSpecialUI;
+
+    public bool HaveSpecialUI { get => haveSpecialUI; set => haveSpecialUI = value; }
 
     // Start is called before the first frame update
     void Awake()
     {
         Resume();
+        haveSpecialUI = false;
     }
 
     // Update is called once per frame
@@ -22,8 +27,15 @@ public class PauseMenuManager : MonoBehaviour
 
     public void PauseGame()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && !isPaused && !player.IsTalking)
-        {  
+        if(Input.GetKeyDown(KeyCode.Escape) && !isPaused && !player.IsTalking && !player.Dead)
+        {
+            if (cancelEnable.Length != null)
+            {
+                for (int i = 0; i < cancelEnable.Length; i++)
+                {
+                    cancelEnable[i].SetActive(false);
+                }
+            }
             pauseMenu.SetActive(true);
             player.CanAttack = false;
             isPaused = true;
@@ -31,6 +43,13 @@ public class PauseMenuManager : MonoBehaviour
         } else if(Input.GetKeyDown(KeyCode.Escape) && isPaused)
         {
             Resume();
+            if (cancelEnable.Length != null && haveSpecialUI)
+            {
+                for (int i = 0; i < cancelEnable.Length; i++)
+                {
+                    cancelEnable[i].SetActive(true);
+                }
+            }
         }
     }
 

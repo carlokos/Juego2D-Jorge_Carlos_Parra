@@ -5,12 +5,15 @@ using UnityEngine;
 public class TrigerBoss : MonoBehaviour
 {
     [SerializeField] private GameObject[] activarObjetos;
+    [SerializeField] private GameObject boss;
+    [SerializeField] private AudioSource deadBoss;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private GameObject fondoDefault;
     [SerializeField] private GameObject bossHealth;
     [SerializeField] private BGMusic_manager sonido;
     [SerializeField] private Player player;
     [SerializeField] private CombatPlayer attack;
+    [SerializeField] private PauseMenuManager PMM;
     
     private void activateObjects()
     {
@@ -26,11 +29,26 @@ public class TrigerBoss : MonoBehaviour
         StartCoroutine(bossActivation());
     }
 
+    public void desactivateObjects()
+    {
+        deadBoss.Play();
+        mainCamera.enabled = true;
+        fondoDefault.SetActive(true);
+        bossHealth.SetActive(false);
+        sonido.BossFinish();
+        foreach (GameObject cosas in activarObjetos)
+        {
+            cosas.SetActive(false);
+        }
+    }
+
     private IEnumerator bossActivation()
     {
+        PMM.GetComponent<PauseMenuManager>().HaveSpecialUI = true;
         player.Speed = 0;
         attack.CanAttack = false;
         yield return new WaitForSeconds(1.5f);
+        boss.SetActive(true);
         bossHealth.SetActive(true);
         sonido.BossStart();
         attack.CanAttack = true;

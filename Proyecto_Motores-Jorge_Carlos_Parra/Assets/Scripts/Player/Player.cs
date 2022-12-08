@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D player;
     private Animator animator;
-    private float speed;
+    [SerializeField] private float speed;
 
     [Header("Salto")]
     [SerializeField] private float jumpForce;
@@ -41,7 +41,6 @@ public class Player : MonoBehaviour
         player = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         escalaGravedad = player.gravityScale;
-        speed = 10;
     }
 
     // Update is called once per frame
@@ -81,11 +80,10 @@ public class Player : MonoBehaviour
             {
                 transform.localScale = new Vector3(-1f, 1, 1);
             }
+
+            if (jump && onFloor && botonSaltoPulsado)
+                Jump();
         }
-
-        if (jump && onFloor && botonSaltoPulsado)
-             Jump();
-
         if (player.velocity.y < 0 && !onFloor)
         {
             player.gravityScale = escalaGravedad * multiplicadorGravedad;
@@ -107,7 +105,7 @@ public class Player : MonoBehaviour
     }
 
     public void Knockback(Vector2 puntoGolpe)
-    {               
+    {
         player.velocity = new Vector2(-knockback.x * puntoGolpe.x, knockback.y);
     }
 

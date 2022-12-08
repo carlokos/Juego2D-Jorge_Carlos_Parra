@@ -7,6 +7,7 @@ public class CombatPlayer : MonoBehaviour
     private Player player;
     private float cd;
     private bool isTalking;
+    private bool dead;
     private Animator animator;
 
     [Header ("Ataque")]
@@ -32,6 +33,7 @@ public class CombatPlayer : MonoBehaviour
 
     [Header("GameOver")]
     [SerializeField] private GameObject gameOverImg;
+    [SerializeField] private GameObject[] cancelEnable;
 
     [Header("Sounds")]
     [SerializeField] private AudioSource arrowSound;
@@ -45,16 +47,18 @@ public class CombatPlayer : MonoBehaviour
     public int NumArrows { get => numArrows; set => numArrows = value; }
     public bool CanAttack { get => canAttack; set => canAttack = value; }
     public bool IsTalking { get => isTalking; set => isTalking = value; }
+    public bool Dead { get => dead; set => dead = value; }
 
     private void Start()
     {
         isTalking = false;
         gameOverImg.SetActive(false);
-        gameOverImg.GetComponent<CanvasGroup>().alpha = 0;
+        gameOverImg.GetComponent<CanvasGroup>().alpha = 1;
         animator = GetComponent<Animator>();
         player = GetComponent<Player>();
         vida = maxVida;
-        canAttack = true; 
+        canAttack = true;
+        dead = false;
         Physics2D.IgnoreLayerCollision(7, 8, false);
         Physics2D.IgnoreLayerCollision(7, 9, false);
     }
@@ -155,9 +159,9 @@ public class CombatPlayer : MonoBehaviour
     {
         hitSound.Play();
         StartCoroutine(Invulnerabilidad());
+        StartCoroutine(PerderelControl());
         vida -= damage;
         animator.SetTrigger("Hurt");
-        StartCoroutine(PerderelControl());
         player.Knockback(posicion);
         if(vida <= 0)
         {
@@ -179,7 +183,7 @@ public class CombatPlayer : MonoBehaviour
         Physics2D.IgnoreLayerCollision(7, 8, true);
         Physics2D.IgnoreLayerCollision(7, 9, true);
         Physics2D.IgnoreLayerCollision(7, 10, true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         Physics2D.IgnoreLayerCollision(7, 8, false);
         Physics2D.IgnoreLayerCollision(7, 9, false);
         Physics2D.IgnoreLayerCollision(7, 10, false);
@@ -189,11 +193,15 @@ public class CombatPlayer : MonoBehaviour
     {
         deathSound.Play();
         Time.timeScale = 0;
-        gameOverImg.SetActive(true);
-        while (gameOverImg.GetComponent<CanvasGroup>().alpha < 1)
+        dead = true;
+        if(cancelEnable.Length != null)
         {
-            gameOverImg.GetComponent<CanvasGroup>().alpha += 0.005f;
+            for(int i = 0; i < cancelEnable.Length; i++)
+            {
+                cancelEnable[i].SetActive(false);
+            }
         }
+        gameOverImg.SetActive(true);
         AudioManager.GameOver();
     }
 }

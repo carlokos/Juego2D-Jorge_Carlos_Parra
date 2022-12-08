@@ -10,6 +10,7 @@ public class BGMusic_manager : MonoBehaviour
 
     public void GameOver()
     {
+        BossMusic.Stop();
         BGMusic.Stop();
         GameOverMusic.Play();
     }
@@ -21,8 +22,8 @@ public class BGMusic_manager : MonoBehaviour
     }
 
     public void BossFinish()
-    {
-        BGMusic.Play();
+    { 
         BossMusic.Stop();
+        BGMusic.Play();
     }
 }

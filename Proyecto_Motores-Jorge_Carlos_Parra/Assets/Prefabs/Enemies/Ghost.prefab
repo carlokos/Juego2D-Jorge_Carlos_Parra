@@ -307,6 +307,7 @@ MonoBehaviour:
   drop: {fileID: 0}
   canDrop: 0
   enemyDead: {fileID: -8903437458862066186}
+  deadAnimation: 0.5
 --- !u!114 &5835461088514029916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +323,6 @@ MonoBehaviour:
   speed: 2
   rb: {fileID: 5835461088514029894}
   isWalker: 0
-  isPatrol: 0
   isFollowing: 0
   walkRight: 0
   wallCheck: {fileID: 5835461087601191819}
@@ -332,10 +332,6 @@ MonoBehaviour:
   Floor:
     serializedVersion: 2
     m_Bits: 8
-  pointA: {fileID: 0}
-  pointB: {fileID: 0}
-  goToA: 0
-  goToB: 0
   player: {fileID: 0}
   canFollow: 1
   isGhost: 1

@@ -388,6 +388,7 @@ MonoBehaviour:
   drop: {fileID: 0}
   canDrop: 0
   enemyDead: {fileID: -1067791683354495894}
+  deadAnimation: 0.5
 --- !u!114 &1997664388344839044
 MonoBehaviour:
   m_ObjectHideFlags: 0

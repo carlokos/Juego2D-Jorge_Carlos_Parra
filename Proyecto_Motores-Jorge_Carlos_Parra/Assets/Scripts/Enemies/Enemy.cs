@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject drop;
     [SerializeField] private bool canDrop;
     [SerializeField] private AudioSource enemyDead;
+    [SerializeField] private float deadAnimation;
     private Animator animator;
     private bool isAttacking;
     private SpriteRenderer sprite;
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour
     private GameObject UI;
 
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
+    public int Vida { get => vida; set => vida = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +54,6 @@ public class Enemy : MonoBehaviour
         gameObject.GetComponent<Collider2D>().enabled = false;
         UI = GameObject.Find("UI");
         UI.GetComponent<PointsManager>().addPoints(points);
-        mov.Speed = 0;
         sprite.color = Color.white;
         animator.SetTrigger("Muerte");
         if (canDrop)
@@ -61,7 +62,7 @@ public class Enemy : MonoBehaviour
             item.transform.position = gameObject.transform.position;
             Instantiate(item);
         }
-        Destroy(gameObject, .5f);
+        Destroy(gameObject, deadAnimation);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -78,7 +79,6 @@ public class Enemy : MonoBehaviour
         animator.SetBool("Attaking", false);
         isAttacking = false;
         range.GetComponent<Collider2D>().enabled = true;
-        mov.Rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     public void ColliderWeaponTrue()

@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8be863daee5354a991f1eb3e4a78d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
   jumpForce: 15
   controladorSuelo: {fileID: 6799174120608021811}
   boxSize: {x: 1, y: 0.25}
@@ -213,6 +214,7 @@ MonoBehaviour:
   projectilecdtime: 0.3
   maxVida: 7
   gameOverImg: {fileID: 0}
+  cancelEnable: []
   arrowSound: {fileID: 1950491337}
   swordSound: {fileID: 1950491340}
   deathSound: {fileID: 1950491339}
